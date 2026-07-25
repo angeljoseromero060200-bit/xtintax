@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xTINTAx Tattoo Studio · Archivo Digital v3.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-black: #000000;
+            --bg-card: #0f0f11;
+            --bg-card-hover: #16161a;
+            --border-color: #26262e;
+            --text-main: #f0f0f5;
+            --text-muted: #8a8a9e;
+            --magenta-neon: #ff007f;
+            --red-intense: #ff2a2a;
+            --purple-subtle: #7c3aed;
+            --accent-glow: rgba(255, 0, 127, 0.15);
+            --font-head: 'Space Grotesk', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-main);
+            font-family: var(--font-head);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.12), transparent 40%),
+                radial-gradient(circle at 100% 50%, rgba(255, 0, 127, 0.08), transparent 35%);
+            background-attachment: fixed;
+        }
+
+        /* Scanline / Grid overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 16px 80px 16px;
+        }
+
+        /* Top Status Bar */
+        .status-bar {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--magenta-neon);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--magenta-neon);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--magenta-neon);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.3; transform: scale(0.9); }
+        }
+
+        /* Header */
+        header {
+            text-align: left;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .brand-title {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 40%, var(--magenta-neon) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .brand-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* Quick Navigation Grid */
+        .nav-index {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .nav-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 8px 10px;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--magenta-neon);
+            color: #fff;
+            box-shadow: 0 0 10px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+
+        /* Main Section Cards */
+        .access-block {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            position: relative;
+            transition: border-color 0.3s ease;
+        }
+
+        .access-block:hover {
+            border-color: rgba(255, 0, 127, 0.4);
+        }
+
+        .block-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .block-code {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--magenta-neon);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        .block-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .quote-box {
+            font-style: italic;
+            color: var(--magenta-neon);
+            border-left: 3px solid var(--magenta-neon);
+            padding-left: 12px;
+            margin: 16px 0 0 0;
+            font-size: 0.95rem;
+            font-family: var(--font-mono);
+        }
+
+        /* Custom Lists */
+        ul.styled-list {
+            list-style: none;
+        }
+
+        ul.styled-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        ul.styled-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--magenta-neon);
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* Timeline / Badges */
+        .badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: #ddd;
+        }
+
+        .badge.highlight {
+            border-color: var(--magenta-neon);
+            color: var(--magenta-neon);
+        }
+
+        /* Residents Grid */
+        .residents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .resident-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 6px;
+        }
+
+        .resident-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .resident-role {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--magenta-neon);
+            margin-bottom: 8px;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: #fff;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 6px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.2s ease;
+            margin-top: 12px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Accordion FAQ */
+        details {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 8px;
+            padding: 12px 16px;
+        }
+
+        details summary {
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        details summary::after {
+            content: "+";
+            font-family: var(--font-mono);
+            color: var(--magenta-neon);
+            font-size: 1.2rem;
+        }
+
+        details[open] summary::after {
+            content: "−";
+        }
+
+        details p {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-top: 1px solid #1f1f26;
+            padding-top: 8px;
+        }
+
+        /* Timeline List */
+        .timeline-list {
+            border-left: 2px solid var(--border-color);
+            padding-left: 16px;
+            margin-left: 8px;
+        }
+
+        .timeline-item {
+            margin-bottom: 14px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -21px;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--magenta-neon);
+            border-radius: 50%;
+        }
+
+        .timeline-year {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--magenta-neon);
+            font-size: 0.85rem;
+        }
+
+        /* Warning Banner */
+        .alert-banner {
+            background-color: rgba(255, 42, 42, 0.1);
+            border: 1px solid var(--red-intense);
+            color: #ff9999;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-top: 16px;
+            font-family: var(--font-mono);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 600px) {
+            .brand-title { font-size: 2.2rem; }
+            .access-block { padding: 16px; }
+            .nav-index { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Top Terminal Status -->
+    <div class="status-bar">
+        <div class="status-badge">
+            <span class="pulse-dot"></span>
+            <span>SYSTEM ONLINE // v3.0</span>
+        </div>
+        <span>CULHUACÁN · CDMX</span>
+    </div>
+
+    <!-- Main Title Header -->
+    <header>
+        <h1 class="brand-title">xTINTAx</h1>
+        <p class="brand-subtitle">TATTOO STUDIO · ARCHIVO DIGITAL OFICIAL</p>
+    </header>
+
+    <!-- Quick Index Navigation -->
+    <nav class="nav-index">
+        <a href="#origin" class="nav-btn">01 · ORIGIN</a>
+        <a href="#prepare" class="nav-btn">02 · PREPARE</a>
+        <a href="#aftercare" class="nav-btn">03 · AFTERCARE</a>
+        <a href="#archive" class="nav-btn">04 · ARCHIVE</a>
+        <a href="#residents" class="nav-btn">05 · RESIDENTS</a>
+        <a href="#contact" class="nav-btn">06 · CONTACT</a>
+        <a href="#faq" class="nav-btn">07 · FAQ</a>
+        <a href="#location" class="nav-btn">08 · LOCATION</a>
+        <a href="#code" class="nav-btn">10 · CODE</a>
+    </nav>
+
+    <!-- ACCESS_01 · ORIGIN -->
+    <section id="origin" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_01</span>
+            <h2 class="block-title">ORIGIN</h2>
+        </div>
+        <p><strong>xTINTAx Tattoo Studio</strong> es un espacio dedicado al tattoo, body piercing, arte urbano y expresión visual, ubicado en el corazón de Culhuacán.</p>
+        <br>
+        <p>Nació desde la calle, pero no le pertenece a las tendencias. La tinta desaparece de la aguja; nunca de la historia.</p>
+        <br>
+        <p>Las "X" representan lo desconocido, la transformación y aquello que no necesita validación para existir.</p>
+        <div class="quote-box">«Hecho en el barrio. Construido para permanecer.»</div>
+    </section>
+
+    <!-- ACCESS_02 · PREPARE -->
+    <section id="prepare" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_02</span>
+            <h2 class="block-title">PREPARE</h2>
+        </div>
+        <p style="margin-bottom: 12px; color: var(--text-muted);">La preparación influye directamente en la experiencia y en el resultado final:</p>
+        <ul class="styled-list">
+            <li>Descansa bien la noche anterior.</li>
+            <li>Llega bien alimentado y trae algo dulce o una bebida.</li>
+            <li>Usa ropa cómoda según la zona a trabajar.</li>
+            <li>Evita alcohol, sustancias recreativas y desvelos.</li>
+            <li>Mantén despejado tu día; algunas sesiones pueden extenderse.</li>
+            <li>Si la sesión es larga, considera traer un snack, audífonos o un cojín de viaje.</li>
+            <li>Se permite un acompañante siempre que contribuya a mantener un ambiente tranquilo.</li>
+            <li>Evita traer mascotas, niños o bebés.</li>
+            <li>Si tienes dudas médicas o de cicatrización, comunícalas antes de tu cita.</li>
+        </ul>
+        <div class="quote-box">«Un buen tatuaje comienza antes de que la aguja toque la piel.»</div>
+    </section>
+
+    <!-- ACCESS_03 · AFTERCARE -->
+    <section id="aftercare" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_03</span>
+            <h2 class="block-title">AFTERCARE</h2>
+        </div>
+        <p style="margin-bottom: 12px;">Tu tatuaje es una intervención sobre la piel y requiere atención durante las primeras semanas:</p>
+        <ul class="styled-list">
+            <li>Mantén la película o venda el tiempo indicado por tu artista.</li>
+            <li>Lava la zona con agua tibia y jabón neutro sin perfume.</li>
+            <li>Seca con pequeños toques utilizando una toalla limpia.</li>
+            <li>Aplica una capa ligera del producto recomendado 2 o 3 veces al día.</li>
+            <li>Evita exposición directa al sol durante las primeras semanas.</li>
+            <li>No ingreses a albercas, mar, tinas o saunas.</li>
+            <li>No retires costras ni piel en proceso de regeneración.</li>
+            <li>Utiliza ropa holgada sobre el área tatuada.</li>
+            <li>Evita actividad física intensa durante los primeros días.</li>
+        </ul>
+
+        <div style="margin-top: 16px;">
+            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">TIEMPO ESTIMADO DE CICATRIZACIÓN:</p>
+            <div class="badge-grid">
+                <span class="badge highlight">Superficial: 2 a 3 semanas</span>
+                <span class="badge">Completa: hasta 6 semanas</span>
+            </div>
+        </div>
+
+        <div class="alert-banner">
+            ⚠️ Si presentas fiebre, pus, inflamación excesiva o dolor persistente, consulta a un profesional de la salud.
+        </div>
+    </section>
+
+    <!-- ACCESS_04 · ARCHIVE -->
+    <section id="archive" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_04</span>
+            <h2 class="block-title">ARCHIVE · ESTILOS</h2>
+        </div>
+        <p style="margin-bottom: 12px; color: var(--text-muted);">El portafolio de xTINTAx reúne trabajos realizados en distintos estilos:</p>
+        <div class="badge-grid">
+            <span class="badge highlight">Blackwork</span>
+            <span class="badge highlight">Lettering</span>
+            <span class="badge highlight">Fine Line</span>
+            <span class="badge">Tradicional</span>
+            <span class="badge">Cover Ups</span>
+            <span class="badge">Diseño personalizado</span>
+            <span class="badge">Body Piercing</span>
+        </div>
+        <div class="quote-box" style="margin-top:20px;">«[Galería fotográfica y catálogo interactivo en constante actualización.]»</div>
+    </section>
+
+    <!-- ACCESS_05 · RESIDENTS -->
+    <section id="residents" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_05</span>
+            <h2 class="block-title">RESIDENTS</h2>
+        </div>
+        <div class="residents-grid">
+            <div class="resident-card">
+                <div class="resident-name">Tachexx Chka</div>
+                <div class="resident-role">FUNDADOR & PROPIETARIO</div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Especialista en Tattoo y Body Piercing, responsable de consolidar la identidad original del estudio.</p>
+            </div>
+            <div class="resident-card">
+                <div class="resident-name">Gerardo Ga</div>
+                <div class="resident-role">TATUADOR RESIDENTE</div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Más de 9 años de experiencia. Dirección artística, desarrollo visual y atención al cliente.</p>
+            </div>
+            <div class="resident-card">
+                <div class="resident-name">Angel José Romero</div>
+                <div class="resident-role">DESARROLLO & DIGITAL</div>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">Enfocado en expansión, desarrollo de proyectos y construcción de la experiencia digital del estudio.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACCESS_06 · CONTACT -->
+    <section id="contact" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_06</span>
+            <h2 class="block-title">CONTACT & RESERVACIONES</h2>
+        </div>
+        <ul class="styled-list">
+            <li>Cotizaciones sin compromiso.</li>
+            <li>Diseños personalizados.</li>
+            <li>Sesiones con cita previa.</li>
+            <li>Seguimiento posterior a tu sesión.</li>
+        </ul>
+        
+        <a href="https://wa.me/525583727213?text=Hola,%20quisiera%20cotizar%20un%20proyecto%20en%20xTINTAx%20Tattoo%20Studio." target="_blank" class="cta-button">
+            <span>💬 AGENDAR VÍA WHATSAPP (55 8372 7213)</span>
+        </a>
+
+        <div class="quote-box">«La mejor manera de apartar tu espacio es enviando referencia, tamaño aproximado y ubicación del tatuaje.»</div>
+    </section>
+
+    <!-- ACCESS_07 · FAQ -->
+    <section id="faq" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_07</span>
+            <h2 class="block-title">FAQ · PREGUNTAS FRECUENTES</h2>
+        </div>
+
+        <details>
+            <summary>¿Cuánto cuesta un tatuaje?</summary>
+            <p>Los trabajos comienzan desde $500 MXN. El costo final depende del diseño, tamaño, complejidad y tiempo estimado.</p>
+        </details>
+
+        <details>
+            <summary>¿Cómo aparto mi cita?</summary>
+            <p>Mediante WhatsApp enviando tu idea, tamaño en centímetros y zona del cuerpo.</p>
+        </details>
+
+        <details>
+            <summary>¿Se solicita anticipo?</summary>
+            <p>Sí. Algunos proyectos requieren un anticipo para asegurar fecha y preparación del diseño. Los anticipos no son reembolsables.</p>
+        </details>
+
+        <details>
+            <summary>¿Qué métodos de pago aceptan?</summary>
+            <p>Efectivo y Transferencia directa. (Aceptación de tarjetas próximamente).</p>
+        </details>
+
+        <details>
+            <summary>¿Cuánto duele?</summary>
+            <p>Depende de la tolerancia de cada persona y de la zona del cuerpo. Algunas áreas son considerablemente más sensibles que otras.</p>
+        </details>
+
+        <details>
+            <summary>¿Puedo llevar mi propio diseño?</summary>
+            <p>Sí, aunque en xTINTAx priorizamos las adaptaciones y propuestas originales.</p>
+        </details>
+
+        <details>
+            <summary>¿Tatúan menores de edad?</summary>
+            <p>No. Es obligatorio presentar identificación oficial (18+ años).</p>
+        </details>
+    </section>
+
+    <!-- ACCESS_08 · LOCATION -->
+    <section id="location" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_08</span>
+            <h2 class="block-title">LOCATION & HORARIOS</h2>
+        </div>
+        <p><strong>Mercado Siglo XXI · CTM VI Culhuacán (Coapa)</strong></p>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">CP 04480 · Ciudad de México</p>
+        <br>
+        <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--magenta-neon);">REFERENCIAS DE LLEGADA:</p>
+        <ul class="styled-list">
+            <li>Cerca del Bachilleres 4.</li>
+            <li>Acceso principal del mercado (Plaza con fuente y bancas).</li>
+            <li>Escaleras junto al estacionamiento.</li>
+            <li>El estudio se encuentra en los locales superiores de la parte frontal del mercado.</li>
+        </ul>
+        <br>
+        <p><strong>HORARIO BASE:</strong> Lunes a Domingo · 10:00 AM – 6:00 PM (Sesiones extendidas bajo cita previa).</p>
+    </section>
+
+    <!-- ACCESS_10 · CODE -->
+    <section id="code" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_10</span>
+            <h2 class="block-title">CÓDIGO xTINTAx</h2>
+        </div>
+        <ul class="styled-list">
+            <li>Calidad sobre velocidad.</li>
+            <li>Higiene sin excepciones.</li>
+            <li>Respeto por el tiempo de artistas y clientes.</li>
+            <li>No se realizan trabajos discriminatorios o de odio.</li>
+            <li>Nos reservamos el derecho de rechazar cualquier proyecto.</li>
+            <li>Se priorizan diseños originales.</li>
+            <li>Toda marca sobre la piel merece intención.</li>
+        </ul>
+        <div class="quote-box">«La tinta es permanente. Las decisiones también.»</div>
+    </section>
+
+    <!-- ACCESS_11 · TIMELINE -->
+    <section id="timeline" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_11</span>
+            <h2 class="block-title">TIMELINE</h2>
+        </div>
+        <div class="timeline-list">
+            <div class="timeline-item"><span class="timeline-year">2017</span> · Inicio de actividades.</div>
+            <div class="timeline-item"><span class="timeline-year">2019</span> · Integración de servicios de Body Piercing.</div>
+            <div class="timeline-item"><span class="timeline-year">2022</span> · Expansión del equipo creativo.</div>
+            <div class="timeline-item"><span class="timeline-year">2024</span> · Consolidación del estudio en Mercado Siglo XXI.</div>
+            <div class="timeline-item"><span class="timeline-year">2026</span> · Desarrollo del Archivo Digital xTINTAx y experiencia QR.</div>
+        </div>
+    </section>
+
+    <!-- ACCESS_12 & 13 · SIGNAL & REDES -->
+    <section class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_12 / 13</span>
+            <h2 class="block-title">REDES & CONEXIÓN</h2>
+        </div>
+        <p style="margin-bottom: 12px;"><strong>Facebook:</strong> xTINTAx TATTOO STUDIO</p>
+        <p style="margin-bottom: 12px;"><strong>Instagram:</strong> xTINTAx TATTOO STUDIO</p>
+        <div class="badge-grid" style="margin-top: 16px;">
+            <span class="badge">⚡ Playlist Oficial Próximamente</span>
+            <span class="badge">🎥 Recorridos en Video</span>
+            <span class="badge">📲 Contenido Exclusivo QR</span>
+        </div>
+        <div class="quote-box">«Escanea. Observa. Regresa.»</div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>xTINTAx Tattoo Studio // v3.0</p>
+        <p style="font-size: 0.75rem; color: #555; margin-top: 6px;">"Las marcas desaparecen de la memoria. La tinta no."</p>
+    </footer>
+
+</div>
+
+</body>
+</html>
+
