@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>xTINTAx | Tattoo Studio & Underground Art</title>
+    <title>xTINTAx Tattoo Studio · Archivo Digital v3.0</title>
     <!-- Fuentes estilo Punk / Fanzine -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #0d0d0d;
-            --text-color: #f5f5f5;
+            --bg-black: #0d0d0d;
+            --paper-white: #f4f4f0;
+            --text-dark: #111111;
             --pink-punk: #ff007f;
             --yellow-punk: #ffe600;
-            --paper-white: #f0f0f0;
-            --dark-card: #181818;
+            --border-black: #000000;
+            --font-head: 'Bebas Neue', cursive, sans-serif;
+            --font-hand: 'Permanent Marker', cursive;
+            --font-mono: 'JetBrains Mono', 'Courier Prime', monospace;
         }
 
         * {
@@ -26,314 +29,677 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Courier Prime', monospace;
+            background-color: var(--bg-black);
+            color: #f0f0f5;
+            font-family: var(--font-mono);
             line-height: 1.5;
-            padding: 25px 15px;
-            background-image: 
-                radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            padding: 20px 15px 80px 15px;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
             background-size: 15px 15px;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 680px;
+            max-width: 750px;
             margin: 0 auto;
         }
 
-        /* HEADER / HERO */
+        /* BARRA SUPERIOR DE ESTADO */
+        .status-bar {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--yellow-punk);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 2px dashed #333;
+            padding: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--pink-punk);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--pink-punk);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.3; transform: scale(0.9); }
+        }
+
+        /* HEADER / TITULAR */
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             position: relative;
         }
 
-        .title-box {
+        .brand-title {
+            font-family: var(--font-head);
+            font-size: 3.8rem;
             background-color: var(--yellow-punk);
             color: #000;
             display: inline-block;
-            padding: 12px 24px;
+            padding: 6px 20px;
             transform: rotate(-2deg);
             box-shadow: 6px 6px 0px var(--pink-punk);
-            margin-bottom: 15px;
             border: 2px solid #000;
-        }
-
-        .title-box h1 {
-            font-family: 'Bebas Neue', cursive;
-            font-size: 3.8rem;
-            letter-spacing: 3px;
             line-height: 0.9;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
         }
 
-        .subtitle {
-            font-family: 'Permanent Marker', cursive;
+        .brand-subtitle {
+            font-family: var(--font-hand);
             color: var(--pink-punk);
-            font-size: 1.3rem;
-            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
             transform: rotate(1deg);
         }
 
-        /* STICKER / BADGE DECORACIÓN */
-        .sticker {
-            position: absolute;
-            top: -15px;
-            right: 5px;
-            background: var(--pink-punk);
+        /* NAVEGACIÓN RÁPIDA */
+        .nav-index {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .nav-btn {
+            background-color: #000;
+            border: 2px solid var(--yellow-punk);
+            color: var(--yellow-punk);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 8px 10px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s ease;
+            box-shadow: 3px 3px 0px var(--pink-punk);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--pink-punk);
             color: #fff;
-            font-family: 'Bebas Neue', sans-serif;
-            padding: 12px 16px;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            transform: rotate(15deg);
-            border: 2px dashed #fff;
-            box-shadow: 3px 3px 0 #000;
+            border-color: #000;
+            transform: translate(-2px, -2px);
         }
 
         /* TARJETAS ESTILO FANZINE / COLLAGE */
-        .card {
+        .access-block {
             background-color: var(--paper-white);
-            color: #111;
-            padding: 25px 20px;
+            color: var(--text-dark);
+            padding: 24px 20px;
             margin-bottom: 35px;
             position: relative;
             box-shadow: 8px 8px 0px #000;
             border: 2px solid #000;
+            transform: rotate(-0.5deg);
         }
 
-        .card.rotate-left { transform: rotate(-1deg); }
-        .card.rotate-right { transform: rotate(1deg); }
+        .access-block:nth-child(even) {
+            transform: rotate(0.8deg);
+        }
 
         /* EFECTO CINTA ADHESIVA (MASKING TAPE) */
-        .card::before {
+        .access-block::before {
             content: '';
             position: absolute;
             top: -12px;
-            left: 30%;
-            width: 90px;
-            height: 25px;
+            left: 25%;
+            width: 85px;
+            height: 24px;
             background-color: rgba(230, 225, 200, 0.85);
             transform: rotate(-3deg);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            border-left: 2px dashed rgba(0,0,0,0.1);
-            border-right: 2px dashed rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            border-left: 2px dashed rgba(0,0,0,0.15);
+            border-right: 2px dashed rgba(0,0,0,0.15);
+            z-index: 2;
         }
 
-        .card h2 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.2rem;
+        .block-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            border-bottom: 2px dashed #000;
+            padding-bottom: 8px;
+        }
+
+        .block-code {
+            font-family: var(--font-mono);
             background-color: #000;
-            color: #fff;
-            display: inline-block;
-            padding: 4px 14px;
-            margin-bottom: 18px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--yellow-punk);
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
         }
 
-        /* LISTAS CON ESTILO REBELDE */
-        .rules-list {
+        .block-title {
+            font-family: var(--font-head);
+            font-size: 2.2rem;
+            color: #000;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        /* QUOTE BOX ESTILO REBELDE */
+        .quote-box {
+            font-family: var(--font-hand);
+            background-color: var(--yellow-punk);
+            color: #000;
+            border: 2px solid #000;
+            padding: 10px 14px;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            transform: rotate(-1deg);
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        /* LISTAS PERSONALIZADAS */
+        ul.styled-list {
             list-style: none;
         }
 
-        .rules-list li {
+        ul.styled-list li {
             position: relative;
-            padding-left: 28px;
-            margin-bottom: 14px;
-            font-weight: 700;
+            padding-left: 26px;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-weight: 600;
             font-size: 0.95rem;
         }
 
-        .rules-list li::before {
+        ul.styled-list li::before {
             content: '✖';
             position: absolute;
             left: 0;
             color: var(--pink-punk);
-            font-size: 1.2rem;
-            font-family: 'Permanent Marker', cursive;
+            font-family: var(--font-hand);
+            font-size: 1.1rem;
         }
 
-        /* HIGHLIGHTS DE TEXTO */
-        .hl-yellow {
-            background-color: var(--yellow-punk);
-            padding: 2px 6px;
-            color: #000;
-            font-weight: bold;
+        /* BADGES / INSIGNIAS */
+        .badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
         }
 
-        .hl-pink {
-            background-color: var(--pink-punk);
+        .badge {
+            background: #000;
             color: #fff;
-            padding: 2px 6px;
+            border: 2px solid #000;
+            padding: 6px 12px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
             font-weight: bold;
         }
 
-        /* PREGUNTAS FRECUENTES (FAQ) */
-        .faq-item {
-            margin-bottom: 15px;
-            border-bottom: 2px dashed #000;
-            padding-bottom: 10px;
+        .badge.highlight {
+            background: var(--pink-punk);
+            color: #fff;
         }
 
-        .faq-item h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
+        /* TARJETAS DE RESIDENTES */
+        .residents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .resident-card {
+            background: #fff;
+            border: 2px solid #000;
+            padding: 14px;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .resident-name {
+            font-family: var(--font-head);
+            font-size: 1.6rem;
             color: #000;
-            margin-bottom: 5px;
+            line-height: 1;
         }
 
-        .faq-item p {
-            font-size: 0.9rem;
-            color: #222;
-        }
-
-        /* BOTONES DE ACCIÓN */
-        .cta-box {
-            text-align: center;
-            margin: 45px 0;
-        }
-
-        .btn-punk {
+        .resident-role {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background: var(--pink-punk);
+            color: #fff;
             display: inline-block;
+            padding: 2px 6px;
+            margin: 6px 0;
+            font-weight: bold;
+        }
+
+        /* BOTÓN CTA WHATSAPP */
+        .cta-button {
+            display: block;
+            text-align: center;
             background-color: var(--pink-punk);
             color: #fff;
-            font-family: 'Bebas Neue', cursive;
-            font-size: 2rem;
+            font-family: var(--font-head);
+            font-size: 1.8rem;
             text-decoration: none;
-            padding: 16px 36px;
+            padding: 14px 20px;
             border: 3px solid #000;
             box-shadow: 6px 6px 0px var(--yellow-punk);
-            transform: rotate(-2deg);
+            transform: rotate(-1.5deg);
             transition: all 0.2s ease;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
+            margin-top: 16px;
         }
 
-        .btn-punk:hover {
-            transform: rotate(0deg) scale(1.03);
+        .cta-button:hover {
+            transform: rotate(0deg) scale(1.02);
             background-color: var(--yellow-punk);
             color: #000;
             box-shadow: 6px 6px 0px var(--pink-punk);
+        }
+
+        /* ACORDEÓN FAQ */
+        details {
+            background: #fff;
+            border: 2px solid #000;
+            box-shadow: 3px 3px 0px #000;
+            margin-bottom: 10px;
+            padding: 10px 14px;
+        }
+
+        details summary {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            cursor: pointer;
+            outline: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #000;
+        }
+
+        details summary::after {
+            content: "✚";
+            font-family: var(--font-mono);
+            color: var(--pink-punk);
+            font-size: 1.1rem;
+        }
+
+        details[open] summary::after {
+            content: "━";
+        }
+
+        details p {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #222;
+            border-top: 2px dashed #000;
+            padding-top: 8px;
+            font-weight: 500;
+        }
+
+        /* TIMELINE */
+        .timeline-list {
+            border-left: 3px dashed #000;
+            padding-left: 16px;
+            margin-left: 8px;
+        }
+
+        .timeline-item {
+            margin-bottom: 14px;
+            position: relative;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .timeline-item::before {
+            content: "✖";
+            position: absolute;
+            left: -24px;
+            top: 0px;
+            color: var(--pink-punk);
+            font-family: var(--font-hand);
+        }
+
+        .timeline-year {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            background: var(--yellow-punk);
+            color: #000;
+            padding: 1px 6px;
+            border: 1px solid #000;
+            margin-right: 6px;
+        }
+
+        /* ALERT BANNER */
+        .alert-banner {
+            background-color: var(--yellow-punk);
+            border: 2px solid #000;
+            color: #000;
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            margin-top: 16px;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            box-shadow: 4px 4px 0px var(--pink-punk);
         }
 
         /* FOOTER */
         footer {
             text-align: center;
             margin-top: 50px;
-            font-size: 0.85rem;
-            color: #888;
-            border-top: 2px dashed #333;
             padding-top: 20px;
+            border-top: 2px dashed #444;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #aaa;
         }
 
-        footer strong {
+        footer p strong {
             color: var(--yellow-punk);
-            font-family: 'Permanent Marker', cursive;
+            font-family: var(--font-hand);
+        }
+
+        @media (max-width: 600px) {
+            .brand-title { font-size: 2.8rem; }
+            .access-block { padding: 18px 14px; }
+            .nav-index { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <!-- ENCABEZADO / HERO -->
-        <header>
-            <div class="sticker">v3.0<br>OFFICIAL</div>
-            <div class="title-box">
-                <h1>xTINTAx TATTOO</h1>
-            </div>
-            <p class="subtitle">Estudio de Tatuajes & Arte Subterráneo</p>
-        </header>
-
-        <!-- SECCIÓN 1: ORIGEN / SOBRE EL ESTUDIO -->
-        <section class="card rotate-left">
-            <h2>Origen & Manifiesto</h2>
-            <p style="margin-bottom: 12px; font-weight: bold;">
-                <span class="hl-yellow">xTINTAx</span> nace como un espacio independiente dedicado al arte corporal auténtico, sin filtros ni modas superficiales.
-            </p>
-            <p style="font-size: 0.9rem; color: #222;">
-                Nos enfocamos en la creación de piezas con carácter, combinando técnicas tradicionales, precisión técnica e ilustración original para quienes buscan llevar una marca con verdadero significado en la piel.
-            </p>
-        </section>
-
-        <!-- SECCIÓN 2: SERVICIOS COMPLETOS -->
-        <section class="card rotate-right">
-            <h2>Nuestros Servicios</h2>
-            <ul class="rules-list">
-                <li><span class="hl-pink">TATUAJE PERSONALIZADO:</span> Desarrollo de diseños únicos desde cero en estilos Fine Line, Blackwork, Chicano, Patchwork y Minimalista.</li>
-                <li><span class="hl-pink">COVER UP & RESTAURACIÓN:</span> Cobertura profesional de tatuajes antiguos, cicatrices o diseños no deseados con piezas de alto impacto.</li>
-                <li><span class="hl-pink">PIERCING & PERFORACIÓN:</span> Perforaciones corporales con joyería de grado biomédico y estricto protocolo de asepsia.</li>
-                <li><span class="hl-pink">DISEÑO & ILUSTRACIÓN:</span> Creación de stencils, vectores y láminas de arte personalizadas antes de la sesión.</li>
-                <li><span class="hl-pink">INSU MOS & CUIDADO POSTERIOR:</span> Venta de productos especializados para garantizar la curación óptima de tu pieza.</li>
-            </ul>
-        </section>
-
-        <!-- SECCIÓN 3: CÓDIGO DE CONDUCTA & FILOSOFÍA -->
-        <section class="card rotate-left">
-            <h2>Código de Conducta</h2>
-            <ul class="rules-list">
-                <li><strong>CALIDAD SOBRE VELOCIDAD:</strong> Priorizamos el detalle y la precisión técnica sobre las sesiones apresuradas.</li>
-                <li><strong>HIGIENE RIGUROSA:</strong> Cumplimos con normativas sanitarias estrictas. Material 100% desechable y estéril abierto frente a ti.</li>
-                <li><strong>RESPETO Y ESPACIO SEGURO:</strong> Cero tolerancia a actos de discriminación, acoso o irrespeto dentro del estudio.</li>
-                <li><strong>100% AUTENTICIDAD:</strong> No realizamos copias exactas de tatuajes ajenos. Respetamos el trabajo de otros artistas.</li>
-            </ul>
-        </section>
-
-        <!-- SECCIÓN 4: PREPARACIÓN ANTES DE TU CITA -->
-        <section class="card rotate-right">
-            <h2>Preparación Previa</h2>
-            <p style="margin-bottom: 15px;">
-                Para un proceso de tatuado cómodo y una cicatrización perfecta, <span class="hl-yellow">sigue estas recomendaciones:</span>
-            </p>
-            <ul class="rules-list">
-                <li>Acude bien <span class="hl-pink">descansado y alimentado</span> antes de tu sesión.</li>
-                <li>No consumas <span class="hl-pink">alcohol o sustancias</span> 24 horas antes de la cita.</li>
-                <li>Trae tu <span class="hl-pink">idea clara</span>, referencias visuales y medidas aproximadas.</li>
-                <li>Mantén la piel del área a tatuar bien <span class="hl-pink">hidratada</span> los días anteriores.</li>
-            </ul>
-        </section>
-
-        <!-- SECCIÓN 5: CUIDADOS POSTERIORES (AFTERCARE) -->
-        <section class="card rotate-left">
-            <h2>Cuidados Posteriores</h2>
-            <ul class="rules-list">
-                <li><span class="hl-pink">LAVADO:</span> Lava la pieza 2 a 3 veces al día con agua tibia y jabón neutro. Seca suavemente con papel absorbente.</li>
-                <li><span class="hl-pink">HIDRATACIÓN:</span> Aplica una capa muy delgada de crema especializada. No satures la piel.</li>
-                <li><span class="hl-pink">RESTRICCIONES:</span> No rasques costras, evita exponer el tatuaje al sol directo y no te sumerjas en albercas, saunas o el mar durante los primeros 15 a 20 días.</li>
-            </ul>
-        </section>
-
-        <!-- SECCIÓN 6: PREGUNTAS FRECUENTES (FAQ) -->
-        <section class="card rotate-right">
-            <h2>Preguntas Frecuentes</h2>
-            
-            <div class="faq-item">
-                <h3>¿Cómo puedo cotizar una pieza?</h3>
-                <p>Envíanos un mensaje por WhatsApp con tu idea, la zona del cuerpo a tatuar y el tamaño aproximado en centímetros.</p>
-            </div>
-
-            <div class="faq-item">
-                <h3>¿Atienden sin cita previa (Walk-ins)?</h3>
-                <p>Trabajamos principalmente bajo agenda previa para dedicarle el tiempo necesario a cada diseño, aunque sujeto a disponibilidad podemos revisar espacios inmediatos.</p>
-            </div>
-
-            <div class="faq-item">
-                <h3>¿Cuánto tiempo tarda en cicatrizar?</h3>
-                <p>La capa superficial de la piel sana entre 10 y 15 días, mientras que la regeneración profunda toma alrededor de un mes.</p>
-            </div>
-        </section>
-
-        <!-- BOTÓN DE CONTACTO / COTIZACIÓN -->
-        <div class="cta-box">
-            <a href="https://wa.me/" class="btn-punk" target="_blank">AGENDAR O COTIZAR POR WHATSAPP</a>
+<div class="container">
+    
+    <!-- Top Terminal Status -->
+    <div class="status-bar">
+        <div class="status-badge">
+            <span class="pulse-dot"></span>
+            <span>SYSTEM ONLINE // v3.0</span>
         </div>
-
-        <!-- FOOTER -->
-        <footer>
-            <p><strong>xTINTAx TATTOO STUDIO</strong> — Arte Subterráneo • Cero Copias • Calidad Profesional</p>
-            <p style="margin-top: 5px; font-size: 0.75rem;">© 2026 Todos los derechos reservados.</p>
-        </footer>
-
+        <span>CULHUACÁN · CDMX</span>
     </div>
+
+    <!-- Main Title Header -->
+    <header>
+        <h1 class="brand-title">xTINTAx</h1>
+        <p class="brand-subtitle">TATTOO STUDIO · ARCHIVO DIGITAL OFICIAL</p>
+    </header>
+
+    <!-- Quick Index Navigation -->
+    <nav class="nav-index">
+        <a href="#origin" class="nav-btn">01 · ORIGIN</a>
+        <a href="#prepare" class="nav-btn">02 · PREPARE</a>
+        <a href="#aftercare" class="nav-btn">03 · AFTERCARE</a>
+        <a href="#archive" class="nav-btn">04 · ARCHIVE</a>
+        <a href="#residents" class="nav-btn">05 · RESIDENTS</a>
+        <a href="#contact" class="nav-btn">06 · CONTACT</a>
+        <a href="#faq" class="nav-btn">07 · FAQ</a>
+        <a href="#location" class="nav-btn">08 · LOCATION</a>
+        <a href="#code" class="nav-btn">10 · CODE</a>
+    </nav>
+
+    <!-- ACCESS_01 · ORIGIN -->
+    <section id="origin" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_01</span>
+            <h2 class="block-title">ORIGIN</h2>
+        </div>
+        <p><strong>xTINTAx Tattoo Studio</strong> es un espacio dedicado al tattoo, body piercing, arte urbano y expresión visual, ubicado en el corazón de Culhuacán.</p>
+        <br>
+        <p>Nació desde la calle, pero no le pertenece a las tendencias. La tinta desaparece de la aguja; nunca de la historia.</p>
+        <br>
+        <p>Las "X" representan lo desconocido, la transformación y aquello que no necesita validación para existir.</p>
+        <div class="quote-box">«Hecho en el barrio. Construido para permanecer.»</div>
+    </section>
+
+    <!-- ACCESS_02 · PREPARE -->
+    <section id="prepare" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_02</span>
+            <h2 class="block-title">PREPARE</h2>
+        </div>
+        <p style="margin-bottom: 12px; font-weight: bold;">La preparación influye directamente en la experiencia y en el resultado final:</p>
+        <ul class="styled-list">
+            <li>Descansa bien la noche anterior.</li>
+            <li>Llega bien alimentado y trae algo dulce o una bebida.</li>
+            <li>Usa ropa cómoda según la zona a trabajar.</li>
+            <li>Evita alcohol, sustancias recreativas y desvelos.</li>
+            <li>Mantén despejado tu día; algunas sesiones pueden extenderse.</li>
+            <li>Si la sesión es larga, considera traer un snack, audífonos o un cojín de viaje.</li>
+            <li>Se permite un acompañante siempre que contribuya a mantener un ambiente tranquilo.</li>
+            <li>Evita traer mascotas, niños o bebés.</li>
+            <li>Si tienes dudas médicas o de cicatrización, comunícalas antes de tu cita.</li>
+        </ul>
+        <div class="quote-box">«Un buen tatuaje comienza antes de que la aguja toque la piel.»</div>
+    </section>
+
+    <!-- ACCESS_03 · AFTERCARE -->
+    <section id="aftercare" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_03</span>
+            <h2 class="block-title">AFTERCARE</h2>
+        </div>
+        <p style="margin-bottom: 12px; font-weight: bold;">Tu tatuaje es una intervención sobre la piel y requiere atención durante las primeras semanas:</p>
+        <ul class="styled-list">
+            <li>Mantén la película o venda el tiempo indicado por tu artista.</li>
+            <li>Lava la zona con agua tibia y jabón neutro sin perfume.</li>
+            <li>Seca con pequeños toques utilizando una toalla limpia.</li>
+            <li>Aplica una capa ligera del producto recomendado 2 o 3 veces al día.</li>
+            <li>Evita exposición directa al sol durante las primeras semanas.</li>
+            <li>No ingreses a albercas, mar, tinas o saunas.</li>
+            <li>No retires costras ni piel en proceso de regeneración.</li>
+            <li>Utiliza ropa holgada sobre el área tatuada.</li>
+            <li>Evita actividad física intensa durante los primeros días.</li>
+        </ul>
+        <div style="margin-top: 16px;">
+            <p style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: bold;">TIEMPO ESTIMADO DE CICATRIZACIÓN:</p>
+            <div class="badge-grid">
+                <span class="badge highlight">Superficial: 2 a 3 semanas</span>
+                <span class="badge">Completa: hasta 6 semanas</span>
+            </div>
+        </div>
+        <div class="alert-banner">
+            ⚠️ Si presentas fiebre, pus, inflamación excesiva o dolor persistente, consulta a un profesional de la salud.
+        </div>
+    </section>
+
+    <!-- ACCESS_04 · ARCHIVE -->
+    <section id="archive" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_04</span>
+            <h2 class="block-title">ARCHIVE · ESTILOS</h2>
+        </div>
+        <p style="margin-bottom: 12px; font-weight: bold;">El portafolio de xTINTAx reúne trabajos realizados en distintos estilos:</p>
+        <div class="badge-grid">
+            <span class="badge highlight">Blackwork</span>
+            <span class="badge highlight">Lettering</span>
+            <span class="badge highlight">Fine Line</span>
+            <span class="badge">Tradicional</span>
+            <span class="badge">Cover Ups</span>
+            <span class="badge">Diseño personalizado</span>
+            <span class="badge">Body Piercing</span>
+        </div>
+        <div class="quote-box" style="margin-top:20px;">«[Galería fotográfica y catálogo interactivo en constante actualización.]»</div>
+    </section>
+
+    <!-- ACCESS_05 · RESIDENTS -->
+    <section id="residents" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_05</span>
+            <h2 class="block-title">RESIDENTS</h2>
+        </div>
+        <div class="residents-grid">
+            <div class="resident-card">
+                <div class="resident-name">Tachexx Chka</div>
+                <div class="resident-role">FUNDADOR & PROPIETARIO</div>
+                <p style="font-size: 0.85rem; color: #333;">Especialista en Tattoo y Body Piercing, responsable de consolidar la identidad original del estudio.</p>
+            </div>
+            <div class="resident-card">
+                <div class="resident-name">Gerardo Ga</div>
+                <div class="resident-role">TATUADOR RESIDENTE</div>
+                <p style="font-size: 0.85rem; color: #333;">Más de 9 años de experiencia. Dirección artística, desarrollo visual y atención al cliente.</p>
+            </div>
+            <div class="resident-card">
+                <div class="resident-name">Angel José Romero</div>
+                <div class="resident-role">DESARROLLO & DIGITAL</div>
+                <p style="font-size: 0.85rem; color: #333;">Enfocado en expansión, desarrollo de proyectos y construcción de la experiencia digital del estudio.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACCESS_06 · CONTACT -->
+    <section id="contact" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_06</span>
+            <h2 class="block-title">CONTACT & RESERVACIONES</h2>
+        </div>
+        <ul class="styled-list">
+            <li>Cotizaciones sin compromiso.</li>
+            <li>Diseños personalizados.</li>
+            <li>Sesiones con cita previa.</li>
+            <li>Seguimiento posterior a tu sesión.</li>
+        </ul>
+        
+        <a href="https://wa.me/525583727213?text=Hola,%20quisiera%20cotizar%20un%20proyecto%20en%20xTINTAx%20Tattoo%20Studio." target="_blank" class="cta-button">
+            <span>💬 AGENDAR VÍA WHATSAPP (55 8372 7213)</span>
+        </a>
+        <div class="quote-box">«La mejor manera de apartar tu espacio es enviando referencia, tamaño aproximado y ubicación del tatuaje.»</div>
+    </section>
+
+    <!-- ACCESS_07 · FAQ -->
+    <section id="faq" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_07</span>
+            <h2 class="block-title">FAQ · PREGUNTAS FRECUENTES</h2>
+        </div>
+        <details>
+            <summary>¿Cuánto cuesta un tatuaje?</summary>
+            <p>Los trabajos comienzan desde $500 MXN. El costo final depende del diseño, tamaño, complejidad y tiempo estimado.</p>
+        </details>
+        <details>
+            <summary>¿Cómo aparto mi cita?</summary>
+            <p>Mediante WhatsApp enviando tu idea, tamaño en centímetros y zona del cuerpo.</p>
+        </details>
+        <details>
+            <summary>¿Se solicita anticipo?</summary>
+            <p>Sí. Algunos proyectos requieren un anticipo para asegurar fecha y preparación del diseño. Los anticipos no son reembolsables.</p>
+        </details>
+        <details>
+            <summary>¿Qué métodos de pago aceptan?</summary>
+            <p>Efectivo y Transferencia directa. (Aceptación de tarjetas próximamente).</p>
+        </details>
+        <details>
+            <summary>¿Cuánto duele?</summary>
+            <p>Depende de la tolerancia de cada persona y de la zona del cuerpo. Algunas áreas son considerablemente más sensibles que otras.</p>
+        </details>
+        <details>
+            <summary>¿Puedo llevar mi propio diseño?</summary>
+            <p>Sí, aunque en xTINTAx priorizamos las adaptaciones y propuestas originales.</p>
+        </details>
+        <details>
+            <summary>¿Tatúan menores de edad?</summary>
+            <p>No. Es obligatorio presentar identificación oficial (18+ años).</p>
+        </details>
+    </section>
+
+    <!-- ACCESS_08 · LOCATION -->
+    <section id="location" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_08</span>
+            <h2 class="block-title">LOCATION & HORARIOS</h2>
+        </div>
+        <p><strong>Mercado Siglo XXI · CTM VI Culhuacán (Coapa)</strong></p>
+        <p style="font-size: 0.9rem; font-weight: bold;">CP 04480 · Ciudad de México</p>
+        <br>
+        <p style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: bold; background: var(--yellow-punk); display: inline-block; padding: 2px 6px; border: 1px solid #000;">REFERENCIAS DE LLEGADA:</p>
+        <br><br>
+        <ul class="styled-list">
+            <li>Cerca del Bachilleres 4.</li>
+            <li>Acceso principal del mercado (Plaza con fuente y bancas).</li>
+            <li>Escaleras junto al estacionamiento.</li>
+            <li>El estudio se encuentra en los locales superiores de la parte frontal del mercado.</li>
+        </ul>
+        <br>
+        <p><strong>HORARIO BASE:</strong> Lunes a Domingo · 10:00 AM – 6:00 PM (Sesiones extendidas bajo cita previa).</p>
+    </section>
+
+    <!-- ACCESS_10 · CODE -->
+    <section id="code" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_10</span>
+            <h2 class="block-title">CÓDIGO xTINTAx</h2>
+        </div>
+        <ul class="styled-list">
+            <li>Calidad sobre velocidad.</li>
+            <li>Higiene sin excepciones.</li>
+            <li>Respeto por el tiempo de artistas y clientes.</li>
+            <li>No se realizan trabajos discriminatorios o de odio.</li>
+            <li>Nos reservamos el derecho de rechazar cualquier proyecto.</li>
+            <li>Se priorizan diseños originales.</li>
+            <li>Toda marca sobre la piel merece intención.</li>
+        </ul>
+        <div class="quote-box">«La tinta es permanente. Las decisiones también.»</div>
+    </section>
+
+    <!-- ACCESS_11 · TIMELINE -->
+    <section id="timeline" class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_11</span>
+            <h2 class="block-title">TIMELINE</h2>
+        </div>
+        <div class="timeline-list">
+            <div class="timeline-item"><span class="timeline-year">2017</span> · Inicio de actividades.</div>
+            <div class="timeline-item"><span class="timeline-year">2019</span> · Integración de servicios de Body Piercing.</div>
+            <div class="timeline-item"><span class="timeline-year">2022</span> · Expansión del equipo creativo.</div>
+            <div class="timeline-item"><span class="timeline-year">2024</span> · Consolidación del estudio en Mercado Siglo XXI.</div>
+            <div class="timeline-item"><span class="timeline-year">2026</span> · Desarrollo del Archivo Digital xTINTAx y experiencia QR.</div>
+        </div>
+    </section>
+
+    <!-- ACCESS_12 & 13 · SIGNAL & REDES -->
+    <section class="access-block">
+        <div class="block-header">
+            <span class="block-code">ACCESS_12 / 13</span>
+            <h2 class="block-title">REDES & CONEXIÓN</h2>
+        </div>
+        <p style="margin-bottom: 12px;"><strong>Facebook:</strong> xTINTAx TATTOO STUDIO</p>
+        <p style="margin-bottom: 12px;"><strong>Instagram:</strong> xTINTAx TATTOO STUDIO</p>
+        <div class="badge-grid" style="margin-top: 16px;">
+            <span class="badge">⚡ Playlist Oficial Próximamente</span>
+            <span class="badge">🎥 Recorridos en Video</span>
+            <span class="badge">📲 Contenido Exclusivo QR</span>
+        </div>
+        <div class="quote-box">«Escanea. Observa. Regresa.»</div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>xTINTAx Tattoo Studio</strong> // v3.0</p>
+        <p style="font-size: 0.8rem; margin-top: 6px;">"Las marcas desaparecen de la memoria. La tinta no."</p>
+    </footer>
+
+</div>
 
 </body>
 </html>
