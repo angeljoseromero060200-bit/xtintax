@@ -7,7 +7,39 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
+    <style>#loader{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:black;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+z-index:10000;
+
+transition:1.5s;
+
+}
+
+#loader.hide{
+
+opacity:0;
+
+pointer-events:none;
+
+}
         :root {
             --bg-black: #000000;
             --bg-card: #0f0f11;
@@ -882,7 +914,76 @@
     <a href="#location" class="app-dock-item">📍 Ubicación</a>
     <a href="https://wa.me/525583727213" target="_blank" class="app-dock-item">💬 WhatsApp</a>
 </div>
+<audio id="boot">
+    <source src="audio/boot.mp3" type="audio/mpeg">
+</audio>
 
+<script>
+
+window.onload = () => {
+
+    setTimeout(() => {
+
+        const loader =
+        document.getElementById(
+        "loader"
+        );
+
+        if(loader){
+
+            loader.classList.add(
+            "hide"
+            );
+
+        }
+
+    },2500);
+
+};
+
+document.addEventListener(
+"click",
+()=>{
+
+const audio =
+document.getElementById(
+"boot"
+);
+
+if(audio){
+
+audio.play();
+
+}
+
+},
+{once:true}
+);
+
+</script>
+<div id="loader">
+
+<h1>
+ACCESS GRANTED
+</h1>
+
+<p>
+INITIALIZING ARCHIVE...
+</p>
+
+<p>
+LOADING RESIDENTS...
+</p>
+
+<p>
+LOADING SIGNAL...
+</p>
+
+<p>
+WELCOME.
+</p>
+
+</div>
 </body>
 </html>
 
